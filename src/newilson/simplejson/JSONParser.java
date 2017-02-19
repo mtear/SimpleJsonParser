@@ -49,7 +49,7 @@ public class JSONParser {
 			return new Boolean(json);
 		}
 		if(JSONParserUtil.isOneQuotedString(json)){
-			return json;
+			return json.substring(1, json.length()-1);
 		}
 		if(JSONParserUtil.isNumeric(json)){
 			if(json.contains(".")){

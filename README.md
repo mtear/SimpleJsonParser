@@ -7,3 +7,9 @@ Free and open-source. Feel free to modify and use for whatever!
 The main method parser method is `JSONParser.parse(String json)` that returns a `JSONObect`. It's pretty simple!
 
 Use the get methods from the `JSONObject` to return values.
+
+## Changelog
+
+v1.0.2: Fixed a bug where string fields still had quotes around them.
+
+v1.0.1: Added more to the README
