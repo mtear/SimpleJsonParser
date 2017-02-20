@@ -10,6 +10,16 @@ Use the get methods from the `JSONObject` to return values.
 
 ## Changelog
 
-v1.0.2: Fixed a bug where string fields still had quotes around them.
+### v1.0.3 
 
-v1.0.1: Added more to the README
+Added the ability to handle escape characters.
+Added toString methods to turn a JSONObject back into JSON.
+The add method in JSONArray now only accepts JSONObjects, as it should have been always.
+
+### v1.0.2
+
+Fixed a bug where string fields still had quotes around them.
+
+### v1.0.1
+
+Added more to the README

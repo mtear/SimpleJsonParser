@@ -18,6 +18,8 @@ package newilson.simplejson;
 import java.util.HashMap;
 import java.util.Set;
 
+import javax.naming.spi.ResolveResult;
+
 /**
  * A class representing a JSONObject.<br>
  * <br>
@@ -183,6 +185,39 @@ public class JSONObject {
 	 */
 	public void put(String name, Object value){
 		members.put(name, value);
+	}
+	
+	@Override
+	public String toString(){
+		StringBuilder result = new StringBuilder();
+		result.append("{\n");
+		
+		int index = 0;
+		//Add all the objects and their keys
+		for(String key : keySet()){
+			index++;
+			//Get the value of the Object as a String
+			String value = get(key).toString();
+			if(value.equals("null")) value = "null";
+			
+			//Add quotes for String literals
+			if(get(key) instanceof String){
+				value = "\"" + 
+						JSONParserUtil.encodeEscapeCharacters(value) + "\"";
+			}
+			
+			String nextLine = "";
+			//Add comma if appropriate
+			if(index < keySet().size()){
+				nextLine = ",";
+			}
+			
+			result.append("\"" + key + "\"").append(" : ").append(value)
+			.append(nextLine).append("\n");
+			
+		}
+		
+		return result.append("}").toString();
 	}
 		
 }

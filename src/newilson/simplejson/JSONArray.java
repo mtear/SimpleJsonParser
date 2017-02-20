@@ -37,12 +37,13 @@ public class JSONArray{
 //*********************************************************____________________
 
 	/**
-	 * Add an object to the JSONArray
+	 * Add a JSONObject to the JSONArray
 	 * 
-	 * @param object The object to add to the JSONArray
+	 * @param object The object to add to the JSONArray if it is a JSONObject
 	 */
 	public void add(Object object){
-		objects.add(object);
+		if(object instanceof JSONObject)
+			objects.add(object);
 	}
 	
 	/**
@@ -71,6 +72,22 @@ public class JSONArray{
 	 */
 	public int size(){
 		return objects.size();
+	}
+	
+	@Override
+	public String toString(){
+		StringBuilder result = new StringBuilder();
+		result.append("[\n");
+		
+		for(int i = 0; i < size(); i++){
+			Object o = get(i);
+			String value = (o == null) ? "null" : o.toString();
+			result.append(value);
+			//Add comma if appropriate
+			if(i < size()-1) result.append(",\n");
+		}
+		
+		return result.append("\n]").toString();
 	}
 	
 }

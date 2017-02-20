@@ -24,6 +24,20 @@ public class JSONParserUtil {
 //*********************************************************____________________
 	
 	/**
+	 * Encode escape characters back into a String
+	 * 
+	 * @param s The string to modify
+	 * @return The modified string with escape characters encoded back in
+	 */
+	public static String encodeEscapeCharacters(String s){
+		s = s.replace("\\", "\\\\");
+		s = s.replace("\"", "\\\"");
+		s = s.replace("\t", "\\\t");
+		
+		return s;
+	}
+	
+	/**
 	 * Find the next comma in the JSON string outside of curly brackets,
 	 * square brackets, and quotes.
 	 * 
@@ -189,6 +203,71 @@ public class JSONParserUtil {
 					result += c;
 				}
 			}
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Replace Character Codes, for example &quot;, with their character
+	 * equivalents.
+	 * 
+	 * @param s The string to transform
+	 * @return The modified string with its character codes replaced
+	 */
+	public static String replaceCharacterCodes(String s){
+		s = s.replace("&quot;", "\"");
+		
+		return s;
+	}
+	
+	/**
+	 * Transform string literal escape characters into their true character
+	 * values.
+	 * 
+	 * @param s The string to transform
+	 * @return The string with literal escape characters turned into real char
+	 * equivalents
+	 */
+	public static String transformEscapeCharacters(String s){
+		//We can avoid sticky situations with a backslash at the
+		//end of a JSON string section by using an iterative
+		//approach rather than a wide sweeping replace approach
+		String result = "";
+		char lastChar = ' '; //Hold the last character seen
+		
+		for(int i = 0; i < s.length(); i++){
+			char currentChar = s.charAt(i);
+			boolean handled = false;
+			
+			if(i > 0 //Don't do this the first time through
+				&& lastChar == '\\'){ //Look for escape sequences
+				handled = true;
+				//Look for escape codes and add them
+				if(currentChar == '\\'){
+					result += '\\';
+					//Reset the character so it doesn't chain
+					currentChar = ' ';
+				}else if(currentChar == '"'){
+					result += "&quot;";
+				}else if(currentChar == 't'){
+					result += '\t';
+				}else if(currentChar == 'n'){
+					result += '\n';
+				}else if(currentChar == 'r'){
+					result += '\r';
+				}else{ //Invalid or unhandled escape character
+					result += lastChar;
+					handled = false;
+				}
+			}
+			
+			//Add the current character if not a \
+			if(currentChar != '\\' && !handled){
+				result += currentChar;
+			}
+			
+			lastChar = currentChar;
 		}
 		
 		return result;

@@ -49,7 +49,8 @@ public class JSONParser {
 			return new Boolean(json);
 		}
 		if(JSONParserUtil.isOneQuotedString(json)){
-			return json.substring(1, json.length()-1);
+			return JSONParserUtil.replaceCharacterCodes(
+					json.substring(1, json.length()-1));
 		}
 		if(JSONParserUtil.isNumeric(json)){
 			if(json.contains(".")){
@@ -104,6 +105,8 @@ public class JSONParser {
 	 */
 	public static JSONObject parse(String json){
 		try{
+			//Remove escape characters
+			json = JSONParserUtil.transformEscapeCharacters(json);
 			//Remove all the unquoted whitespace
 			json = JSONParserUtil.removeUnquotedWhitespace(json);
 			//Confirm the initial string is an object
@@ -112,7 +115,9 @@ public class JSONParser {
 				//Start the recursion from the inner method
 				return (JSONObject)innerParseMethod(json);
 			}
-		}catch(Exception e){}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		
 		//Return null if error
 		return null;
