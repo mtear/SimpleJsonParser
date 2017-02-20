@@ -12,9 +12,9 @@ Use the get methods from the `JSONObject` to return values.
 
 ### v1.0.3 
 
-Added the ability to handle escape characters.
-Added toString methods to turn a JSONObject back into JSON.
-The add method in JSONArray now only accepts JSONObjects, as it should have been always.
+Added the ability to handle escape characters.  
+Added toString methods to turn a JSONObject back into JSON.  
+The add method in JSONArray now only accepts JSONObjects, as it should have been always.  
 
 ### v1.0.2
 
