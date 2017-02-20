@@ -18,8 +18,6 @@ package newilson.simplejson;
 import java.util.HashMap;
 import java.util.Set;
 
-import javax.naming.spi.ResolveResult;
-
 /**
  * A class representing a JSONObject.<br>
  * <br>
